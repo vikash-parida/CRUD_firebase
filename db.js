@@ -1,8 +1,13 @@
-const firebase = require('firebase');
 const databaseKey = require('./key.json')
+const { initializeApp, cert } = require('firebase-admin/app')
+const { getFirestore } = require('firebase-admin/firestore')
 
 
-const db = firebase.initializeApp(databaseKey)
+initializeApp({
+    credential: cert(serviceAccount)
+})
 
+const db = getFirestore()
 
-module.exports = db;
+module.exports = db 
+
