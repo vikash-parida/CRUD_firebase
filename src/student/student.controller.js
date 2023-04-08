@@ -1,13 +1,16 @@
 const db = require("../../config/db");
+const service = require('./student.service');
 
 exports.addStudentData = async (req, res) => {
-  try {
-    let data = req.body;
-    let result = db.collection("student").add(data);
-  return  res.status(200).json({ result });
-  } catch (err) {
-   return res.status(404).send("user data not added");
+  let {firstName,lastName,contactNo,address,subject,gender} = req.body;
+  let studentData = {firstName,lastName,contactNo,address,subject,gender};
+  let result = await service.addStudentData(studentData)
+  if(result.success){
+    return res.status(200).json({data:result})
+  }else{
+    return res.status(404).json({data:result})
   }
+
 };
 
 exports.getStudentData = async (req,res) => {
